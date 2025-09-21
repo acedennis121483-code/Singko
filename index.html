@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Singko Lottery Panel</title>
+<style>
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+  background: #0f172a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  min-height: 100vh;
+  color: #9aa4b2;
+}
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.singko-box {
+  background: linear-gradient(90deg,#ffcc00,#ff8a00);
+  padding: 15px 30px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 52px;
+  color: #000;
+  text-align: center;
+}
+.entry-fee {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.entry-label { font-size: 16px; }
+.entry-amount {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+}
+.slogan {
+  font-size: 18px;
+  font-weight: 700;
+  color: #32d74b;
+  text-align: center;
+  animation: fadeInOut 2s infinite;
+  margin-top: 12px;
+}
+@keyframes fadeInOut { 0%,100% { opacity: 0; } 50% { opacity: 1; } }
+.middle-section {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  max-width: 560px;
+}
+.prize-box { text-align: center; }
+.prize-label { font-size: 18px; font-weight: 700; margin-bottom: 4px; color: #9aa4b2; }
+.prize-amount { 
+  font-size: 40px; 
+  font-weight: 700; 
+  background: linear-gradient(90deg, #FFD700 20%, #FFFACD 50%, #FFD700 80%);
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: shimmer 2s infinite linear;
+}
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+.winners-text { font-size: 16px; font-weight: 700; margin-top: 4px; color: #fff; }
+.participants-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+.participants-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+.live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 8px rgba(52,211,153,0.6);
+  animation: pulse 1s infinite ease-in-out;
+  display: inline-block;
+}
+@keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.6); opacity: 0.6; } 100% { transform: scale(1); opacity: 1; } }
+.icon {
+  width: 20px;
+  height: 20px;
+  fill: #9aa4b2;
+}
+.participants-label, .participants-number { color: #9aa4b2; font-weight: 700; }
+.participants-label { font-size: 16px; }
+.participants-number { font-size: 28px; color: #fff; margin-top: 4px; }
+.click-join {
+  padding: 8px 16px;
+  background: linear-gradient(90deg,#006400,#00a000);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  animation: pulse 1.5s infinite;
+  text-align: center;
+  margin-top: 12px;
+}
+.draw-section {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  color: #9aa4b2;
+  width: 100%;
+  max-width: 560px;
+}
+.draw-info-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.countdown { font-size: 20px; font-weight: 700; color: #fff; }
+.telegram-btn {
+  padding: 6px 12px;
+  background: linear-gradient(90deg,#0066ff,#3399ff);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+}
+</style>
+</head>
+<body>
+
+<!-- Upper Section -->
+<div class="title-row">
+  <div class="singko-box">Singko</div>
+  <div class="entry-fee">
+    <div class="entry-label">Entry<br>Fee</div>
+    <div class="entry-amount">&#8369;5</div>
+  </div>
+</div>
+<div class="slogan">Pinakamurang game of chance</div>
+
+<!-- Middle Section -->
+<div class="middle-section">
+  <div class="prize-box">
+    <div class="prize-label">Prize to be won</div>
+    <div class="prize-amount" id="prizeAmount">&#8369;5,000</div>
+    <div class="winners-text">50 Winners</div>
+  </div>
+  <div class="participants-box">
+    <div class="participants-row">
+      <span class="live-dot"></span>
+      <!-- SVG People Icon -->
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 
+        3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 
+        2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 
+        3zm0 2c-2.33 0-7 1.17-7 
+        3.5V20h14v-3.5C15 14.17 10.33 
+        13 8 13zm8 0c-.29 0-.62.02-.97.05 
+        1.16.84 1.97 1.97 1.97 
+        3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
+      </svg>
+      <span class="participants-label">Participants Joined</span>
+    </div>
+    <div class="participants-number" id="participantsCount">0</div>
+  </div>
+  <div class="click-join">Click to Join</div>
+</div>
+
+<!-- Live Draw Section -->
+<div class="draw-section">
+  <div class="draw-info-row">
+    <div>Draw time: October 1, 2025 at 12:00PM</div>
+  </div>
+  <div class="draw-info-row">
+    <div>Draw starts in:</div>
+    <div class="countdown" id="countdownTimer">00d 00h 00m 00s</div>
+  </div>
+  <div class="draw-info-row">
+    <div>Draw Venue: Telegram</div>
+    <div class="telegram-btn">Join Channel</div>
+  </div>
+</div>
+
+<script>
+let participants = 0;
+const winners = 50;
+const prizeBase = 5000;
+
+const participantsEl = document.getElementById('participantsCount');
+const prizeEl = document.getElementById('prizeAmount');
+
+// Update stats
+function updateStats() {
+  let prize = participants * 5 * 0.7 / winners;
+  if(prize < prizeBase) prize = prizeBase;
+  prizeEl.innerHTML = "&#8369;" + Math.floor(prize).toLocaleString();
+  participantsEl.textContent = participants.toLocaleString();
+}
+
+// Simulate participants joining
+setInterval(()=>{
+  participants += Math.floor(Math.random()*3);
+  updateStats();
+},1500);
+
+// Countdown timer
+const drawDate = new Date("October 1, 2025 12:00:00").getTime();
+const countdownEl = document.getElementById("countdownTimer");
+setInterval(()=>{
+  const now = new Date().getTime();
+  const distance = drawDate - now;
+  if(distance>0){
+    const days = Math.floor(distance/(1000*60*60*24));
+    const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+    const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+    const seconds = Math.floor((distance%(1000*60))/1000);
+    countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  } else {
+    countdownEl.textContent = "LIVE NOW!";
+  }
+},1000);
+</script>
+
+</body>
+</html>
