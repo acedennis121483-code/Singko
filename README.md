@@ -1,1 +1,1 @@
-# Singko-Lottery
+# Singko
